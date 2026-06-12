@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 152 20% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 152 20% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 152 20% 12%;
+
+    --primary: 152 55% 28%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 152 20% 94%;
+    --secondary-foreground: 152 25% 20%;
+
+    --muted: 152 10% 95%;
+    --muted-foreground: 152 10% 45%;
+
+    --accent: 152 30% 90%;
+    --accent-foreground: 152 30% 20%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 152 10% 88%;
+    --input: 152 10% 88%;
+    --ring: 152 55% 28%;
+
+    --radius: 0.625rem;
+  }
+
+  .dark {
+    --background: 152 20% 6%;
+    --foreground: 152 10% 95%;
+
+    --card: 152 18% 9%;
+    --card-foreground: 152 10% 95%;
+
+    --popover: 152 18% 9%;
+    --popover-foreground: 152 10% 95%;
+
+    --primary: 152 55% 42%;
+    --primary-foreground: 152 20% 6%;
+
+    --secondary: 152 15% 15%;
+    --secondary-foreground: 152 10% 85%;
+
+    --muted: 152 12% 14%;
+    --muted-foreground: 152 8% 55%;
+
+    --accent: 152 20% 16%;
+    --accent-foreground: 152 10% 85%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 152 12% 18%;
+    --input: 152 12% 18%;
+    --ring: 152 55% 42%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply antialiased;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Focus styles for keyboard navigation (WCAG 2.1 AA) */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Screen reader only utility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+@layer components {
+  /* Custom scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  /* Page transition */
+  .page-enter {
+    @apply animate-fade-in;
+  }
+
+  /* Card hover state */
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-md hover:-translate-y-0.5;
+  }
+
+  /* Stat card */
+  .stat-card {
+    @apply bg-card border border-border rounded-xl p-5 card-hover;
+  }
+
+  /* Badge variants */
+  .badge-forest {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-forest-100 text-forest-800 dark:bg-forest-900/40 dark:text-forest-300;
+  }
+
+  .badge-sage {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-sage-100 text-sage-800 dark:bg-sage-900/40 dark:text-sage-300;
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-gradient-to-r from-forest-600 to-sage-600 bg-clip-text text-transparent;
+  }
+
+  /* Skip link for accessibility */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50
+           focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground
+           focus:rounded-md focus:text-sm focus:font-medium;
+  }
+}
+
+/* Recharts customizations */
+.recharts-tooltip-wrapper {
+  outline: none;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
