@@ -92,7 +92,16 @@ export function CalculatorPage(): React.JSX.Element {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<StepResult | null>(null);
+  const [calculateDisabled, setCalculateDisabled] = useState(false);
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (currentStep === steps.length - 1) {
+      setCalculateDisabled(true);
+      const timer = setTimeout(() => setCalculateDisabled(false), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [currentStep]);
 
   const {
     register,
@@ -432,6 +441,7 @@ export function CalculatorPage(): React.JSX.Element {
                 type="submit"
                 form="calculator-form"
                 loading={loading}
+                disabled={calculateDisabled || loading}
                 aria-label={loading ? 'Calculating...' : 'Calculate my footprint'}
               >
                 {loading ? 'Calculating...' : 'Calculate'}
