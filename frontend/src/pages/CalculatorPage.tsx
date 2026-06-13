@@ -13,17 +13,17 @@ import api from '@/lib/api';
 import { getApiErrorMessage, formatNumber } from '@/lib/utils';
 
 const calcSchema = z.object({
-  carKm: z.number().min(0).max(10000),
-  bikeKm: z.number().min(0).max(10000),
-  publicTransportKm: z.number().min(0).max(10000),
-  flightKmPerYear: z.number().min(0).max(200000),
-  electricityKwh: z.number().min(0).max(10000),
-  naturalGasM3: z.number().min(0).max(1000),
-  lpgKg: z.number().min(0).max(500),
+  carKm: z.coerce.number({ invalid_type_error: 'Invalid number' }).min(0, 'Must be positive').max(10000),
+  bikeKm: z.coerce.number({ invalid_type_error: 'Invalid number' }).min(0, 'Must be positive').max(10000),
+  publicTransportKm: z.coerce.number({ invalid_type_error: 'Invalid number' }).min(0, 'Must be positive').max(10000),
+  flightKmPerYear: z.coerce.number({ invalid_type_error: 'Invalid number' }).min(0, 'Must be positive').max(200000),
+  electricityKwh: z.coerce.number({ invalid_type_error: 'Invalid number' }).min(0, 'Must be positive').max(10000),
+  naturalGasM3: z.coerce.number({ invalid_type_error: 'Invalid number' }).min(0, 'Must be positive').max(1000),
+  lpgKg: z.coerce.number({ invalid_type_error: 'Invalid number' }).min(0, 'Must be positive').max(500),
   dietType: z.enum(['VEGAN', 'VEGETARIAN', 'MIXED', 'HIGH_MEAT']),
-  recyclingPercent: z.number().min(0).max(100),
-  plasticKg: z.number().min(0).max(100),
-  generalWasteKg: z.number().min(0).max(500),
+  recyclingPercent: z.coerce.number({ invalid_type_error: 'Invalid number' }).min(0, 'Must be positive').max(100),
+  plasticKg: z.coerce.number({ invalid_type_error: 'Invalid number' }).min(0, 'Must be positive').max(100),
+  generalWasteKg: z.coerce.number({ invalid_type_error: 'Invalid number' }).min(0, 'Must be positive').max(500),
   notes: z.string().max(500).optional(),
 });
 
@@ -279,7 +279,7 @@ export function CalculatorPage(): React.JSX.Element {
                       unit="km / week"
                       description="Average kilometres driven by personal car each week"
                       error={errors.carKm?.message}
-                      {...register('carKm', { valueAsNumber: true })}
+                      {...register('carKm')}
                     />
                     <NumberField
                       id="bikeKm"
@@ -287,7 +287,7 @@ export function CalculatorPage(): React.JSX.Element {
                       unit="km / week"
                       description="Average kilometres cycled (produces near-zero emissions)"
                       error={errors.bikeKm?.message}
-                      {...register('bikeKm', { valueAsNumber: true })}
+                      {...register('bikeKm')}
                     />
                     <NumberField
                       id="publicTransportKm"
@@ -295,7 +295,7 @@ export function CalculatorPage(): React.JSX.Element {
                       unit="km / week"
                       description="Combined bus, train, metro distance per week"
                       error={errors.publicTransportKm?.message}
-                      {...register('publicTransportKm', { valueAsNumber: true })}
+                      {...register('publicTransportKm')}
                     />
                     <NumberField
                       id="flightKmPerYear"
@@ -303,7 +303,7 @@ export function CalculatorPage(): React.JSX.Element {
                       unit="km / year"
                       description="Total kilometres flown per year (round trip). E.g. London→NY = 11,400 km"
                       error={errors.flightKmPerYear?.message}
-                      {...register('flightKmPerYear', { valueAsNumber: true })}
+                      {...register('flightKmPerYear')}
                     />
                   </>
                 )}
@@ -316,7 +316,7 @@ export function CalculatorPage(): React.JSX.Element {
                       unit="kWh / month"
                       description="Check your electricity bill. UK average is ~250–400 kWh/month"
                       error={errors.electricityKwh?.message}
-                      {...register('electricityKwh', { valueAsNumber: true })}
+                      {...register('electricityKwh')}
                     />
                     <NumberField
                       id="naturalGasM3"
@@ -324,7 +324,7 @@ export function CalculatorPage(): React.JSX.Element {
                       unit="m³ / month"
                       description="From your gas bill. UK average is ~50–100 m³/month (heating season)"
                       error={errors.naturalGasM3?.message}
-                      {...register('naturalGasM3', { valueAsNumber: true })}
+                      {...register('naturalGasM3')}
                     />
                     <NumberField
                       id="lpgKg"
@@ -332,7 +332,7 @@ export function CalculatorPage(): React.JSX.Element {
                       unit="kg / month"
                       description="Liquefied petroleum gas for cooking or heating (0 if not applicable)"
                       error={errors.lpgKg?.message}
-                      {...register('lpgKg', { valueAsNumber: true })}
+                      {...register('lpgKg')}
                     />
                   </>
                 )}
@@ -371,7 +371,7 @@ export function CalculatorPage(): React.JSX.Element {
                         step={5}
                         aria-describedby="recycling-desc"
                         className="h-auto"
-                        {...register('recyclingPercent', { valueAsNumber: true })}
+                        {...register('recyclingPercent')}
                       />
                     </div>
                     <NumberField
@@ -380,7 +380,7 @@ export function CalculatorPage(): React.JSX.Element {
                       unit="kg / month"
                       description="Plastic packaging, bags, bottles discarded monthly"
                       error={errors.plasticKg?.message}
-                      {...register('plasticKg', { valueAsNumber: true })}
+                      {...register('plasticKg')}
                     />
                     <NumberField
                       id="generalWasteKg"
@@ -388,7 +388,7 @@ export function CalculatorPage(): React.JSX.Element {
                       unit="kg / month"
                       description="Total household waste before recycling (UK average: ~30 kg/month)"
                       error={errors.generalWasteKg?.message}
-                      {...register('generalWasteKg', { valueAsNumber: true })}
+                      {...register('generalWasteKg')}
                     />
                   </>
                 )}
