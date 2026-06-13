@@ -269,7 +269,18 @@ export function CalculatorPage(): React.JSX.Element {
               </Alert>
             )}
 
-            <form id="calculator-form" onSubmit={(e) => void handleSubmit(onSubmit)(e)} noValidate>
+            <form 
+              id="calculator-form" 
+              onSubmit={(e) => {
+                if (currentStep < steps.length - 1) {
+                  e.preventDefault();
+                  void handleNext();
+                } else {
+                  void handleSubmit(onSubmit)(e);
+                }
+              }} 
+              noValidate
+            >
               <fieldset className="space-y-4 border-0 p-0">
                 <legend className="sr-only">{steps[currentStep].label} inputs</legend>
 
