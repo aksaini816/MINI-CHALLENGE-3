@@ -14,6 +14,7 @@ const InsightsPage = lazy(() => import('@/pages/InsightsPage').then(m => ({ defa
 const GoalsPage = lazy(() => import('@/pages/GoalsPage').then(m => ({ default: m.GoalsPage })));
 const ChallengesPage = lazy(() => import('@/pages/ChallengesPage').then(m => ({ default: m.ChallengesPage })));
 const KnowledgeHubPage = lazy(() => import('@/pages/KnowledgeHubPage').then(m => ({ default: m.KnowledgeHubPage })));
+const ArticleDetailPage = lazy(() => import('@/pages/ArticleDetailPage').then(m => ({ default: m.ArticleDetailPage })));
 const HistoryPage = lazy(() => import('@/pages/HistoryPage').then(m => ({ default: m.HistoryPage })));
 const SettingsPage = lazy(() => import('@/pages/SettingsPage').then(m => ({ default: m.SettingsPage })));
 const AdminPage = lazy(() => import('@/pages/AdminPage').then(m => ({ default: m.AdminPage })));
@@ -51,6 +52,7 @@ function App(): React.JSX.Element {
             <Route path="/goals" element={<ProtectedRoute><GoalsPage /></ProtectedRoute>} />
             <Route path="/challenges" element={<ProtectedRoute><ChallengesPage /></ProtectedRoute>} />
             <Route path="/knowledge" element={<ProtectedRoute><KnowledgeHubPage /></ProtectedRoute>} />
+            <Route path="/knowledge/:slug" element={<ProtectedRoute><ArticleDetailPage /></ProtectedRoute>} />
             <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
             <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
 
