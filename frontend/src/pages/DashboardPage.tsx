@@ -126,7 +126,7 @@ export function DashboardPage(): React.JSX.Element {
     return (
       <Layout title="Dashboard">
         <EmptyState
-          title={`${greeting}, ${user?.name?.split(' ')[0]}! 👋`}
+          title={`${greeting}, ${user?.name ? user.name.split(' ')[0] : 'Guest'}! 👋`}
           description="Your sustainability journey starts here. Calculate your first carbon footprint to see personalized insights and trends."
           actionTo="/calculator"
           actionLabel="Calculate my carbon footprint"
@@ -144,7 +144,7 @@ export function DashboardPage(): React.JSX.Element {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-foreground">
-              {greeting}, {user?.name?.split(' ')[0]}! 🌿
+              {greeting}, {user?.name ? user.name.split(' ')[0] : 'Guest'}! 🌿
             </h2>
             <p className="text-muted-foreground text-sm mt-0.5">
               Here's your sustainability overview
