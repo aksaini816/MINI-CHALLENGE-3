@@ -50,13 +50,13 @@ const steps = [
   { id: 'waste', label: 'Waste', icon: Trash2, description: 'Waste generation & recycling' },
 ];
 
-const NumberField: React.FC<{
+const NumberField = React.forwardRef<HTMLInputElement, {
   id: string;
   label: string;
   unit?: string;
   description?: string;
   error?: string;
-} & React.InputHTMLAttributes<HTMLInputElement>> = ({ id, label, unit, description, error, ...props }) => (
+} & React.InputHTMLAttributes<HTMLInputElement>>(({ id, label, unit, description, error, ...props }, ref) => (
   <div className="space-y-1.5">
     <Label htmlFor={id}>{label}</Label>
     {description && (
@@ -67,6 +67,7 @@ const NumberField: React.FC<{
     <div className="flex items-center gap-2">
       <Input
         id={id}
+        ref={ref}
         type="number"
         min={0}
         step="any"
@@ -83,7 +84,8 @@ const NumberField: React.FC<{
       </p>
     )}
   </div>
-);
+));
+NumberField.displayName = 'NumberField';
 
 export function CalculatorPage(): React.JSX.Element {
   const [currentStep, setCurrentStep] = useState(0);
