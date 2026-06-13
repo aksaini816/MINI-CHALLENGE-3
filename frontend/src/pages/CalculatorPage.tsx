@@ -271,14 +271,15 @@ export function CalculatorPage(): React.JSX.Element {
 
             <form 
               id="calculator-form" 
-              onSubmit={(e) => {
-                if (currentStep < steps.length - 1) {
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && (e.target as HTMLElement).tagName !== 'BUTTON') {
                   e.preventDefault();
-                  void handleNext();
-                } else {
-                  void handleSubmit(onSubmit)(e);
+                  if (currentStep < steps.length - 1) {
+                    void handleNext();
+                  }
                 }
-              }} 
+              }}
+              onSubmit={(e) => void handleSubmit(onSubmit)(e)} 
               noValidate
             >
               <fieldset className="space-y-4 border-0 p-0">
@@ -411,6 +412,7 @@ export function CalculatorPage(): React.JSX.Element {
 
           <CardFooter className="flex justify-between">
             <Button
+              type="button"
               variant="outline"
               onClick={() => setCurrentStep((s) => Math.max(s - 1, 0))}
               disabled={currentStep === 0}
@@ -421,7 +423,7 @@ export function CalculatorPage(): React.JSX.Element {
             </Button>
 
             {currentStep < steps.length - 1 ? (
-              <Button onClick={() => void handleNext()} aria-label="Go to next step">
+              <Button type="button" onClick={() => void handleNext()} aria-label="Go to next step">
                 Next
                 <ChevronRight className="h-4 w-4 ml-1" aria-hidden="true" />
               </Button>
